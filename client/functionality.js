@@ -8,14 +8,12 @@ function postNote(event) {
     if(data){
         noteRequest("POST", {"text": data});
     } 
-        
     event.target.noteValue.value = "";
     return false;
 }
 
 function updateNote(event){
     event.preventDefault();
-
     let body ={
         id: event.target.parentElement.parentElement.id,
         text: event.target.noteText.value
@@ -27,7 +25,6 @@ function updateNote(event){
 function deleteNote(event){
     let id = event.target.parentElement.id;
     noteRequest("DELETE", "", id);
-
 }
 
 function showData(request) {
@@ -55,10 +52,9 @@ function showData(request) {
     notes.forEach(note => makeNote(note))
 }
 
-
 function addInput(event){
-    let note = event.target
-    
+    let note = event.target;
+    note.removeAttribute("onclick");
     let text = note.innerText;
     note.innerText = "";
     
@@ -92,11 +88,11 @@ function noteRequest(method, body, extension) {
     httpRequest(method, endpoint, callback, headers, body);
 }
 
-getData();
 
 function httpRequest(method, endpoint, callback, headers, body){
-    const URL = "http://localhost:8080"
+    let URL = "http://" + location.host + ":8080/";
     let request = new XMLHttpRequest();
+    console.log(URL + endpoint)
     request.open(method, URL + endpoint);
     request.onload = () => {
         callback(request);
@@ -108,3 +104,5 @@ function httpRequest(method, endpoint, callback, headers, body){
 
     body ? request.send(body) : request.send();
 }
+
+getData();
