@@ -1,7 +1,12 @@
 # Demo project
 
+# Client
+This was done quite quickly so you might expect to see a lot of bad practice (do not replicate the bad practice - this was a quick thing to show an example).
 
-# Backend
+Full CRUD achieved. 
+
+
+# Server
 
 ## com.qa.controller
 This is where the endpoints are located
