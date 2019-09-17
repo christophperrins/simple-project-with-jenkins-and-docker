@@ -26,11 +26,10 @@ public class NoteService {
 	
 	public NoteDto createNote(NoteDto noteDto){
 		noteDto.setId(null);
-		Note note = new Note();
+		Note note = Note.createNote();
 		note.setText(noteDto.getText());
 		
-		Note returned = noteRepository.saveAndFlush(note);
-		return new NoteDto(returned);
+		return new NoteDto(noteRepository.saveAndFlush(note));
 	}
 	
 	public NoteDto updateNote(NoteDto noteDto){
@@ -43,9 +42,7 @@ public class NoteService {
 	public NoteDto deleteNote(Long id){
 		Note note = noteRepository.getOne(id);
 		NoteDto noteDto = new NoteDto(note);
-		System.out.println(noteDto.getText());
 		noteRepository.deleteById(id);
-		System.out.println(noteDto.getText());
 		return noteDto;
 	}
 }
