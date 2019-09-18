@@ -2,19 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Clean') {
+        stage('Build') {
             steps {
-                sh 'sudo docker-compose down'
+                dir("server/"){
+                    sh 'mvn install -DskipTests'
+                }
             }
         }
         stage('Junit Tests') {
             steps {
-                sh 'mvn test -Dtest=ControllerAndServiceSuite'
+                dir("server/") {
+                    sh 'mvn test -Dtest=ControllerAndServiceSuite'
+                }
             }
         }
-        stage('Build') {
+        stage('Deploy') {
             steps {
-                sh 'sudo docker-compose up'
+                sh 'sudo docker-compose up -d'
             }
         }
         stage('Selenium Tests') {
