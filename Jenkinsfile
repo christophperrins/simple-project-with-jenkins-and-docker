@@ -17,7 +17,7 @@ pipeline {
                 sh 'sudo docker-compose up'
             }
         }
-        stage('Selenium Tests) {
+        stage('Selenium Tests') {
             steps {
                 sh 'mvn test -Dtest=SeleniumSuite'
             }
