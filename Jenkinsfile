@@ -9,7 +9,9 @@ pipeline {
         }
         stage('Junit Tests') {
             steps {
+                cd server/
                 sh 'mvn test -Dtest=ControllerAndServiceSuite'
+                cd ..
             }
         }
         stage('Build') {
