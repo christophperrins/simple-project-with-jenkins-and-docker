@@ -23,7 +23,9 @@ pipeline {
         }
         stage('Selenium Tests') {
             steps {
-                sh 'mvn test -Dtest=SeleniumSuite'
+                dir("server/") {
+                    sh 'mvn test -Dtest=SeleniumSuite'
+                }
             }
         }
     }
