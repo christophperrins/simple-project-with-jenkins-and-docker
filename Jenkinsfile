@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir("server/"){
-                    sh 'mvn package -Dskiptests'
+                    sh 'mvn install -DskipTests'
                 }
             }
         }
