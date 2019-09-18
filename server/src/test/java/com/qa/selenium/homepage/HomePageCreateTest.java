@@ -2,6 +2,8 @@ package com.qa.selenium.homepage;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +32,7 @@ public class HomePageCreateTest {
 	
 	@Test
 	public void addNoteTest() {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		int before = homepage.noteLength();
 		homepage.addNote(SeleniumConst.OLD_TEXT);
 		assertEquals(before + 1, homepage.noteLength());
