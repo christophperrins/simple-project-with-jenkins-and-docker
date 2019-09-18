@@ -11,12 +11,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import com.qa.selenium.SeleniumConst;
 
+import com.qa.selenium.homepage.HomePagePOM;
+
 public class HomePageCreateTest {
 
 	private WebDriver driver;
 	private HomePagePOM homepage;
 
-	
 	@Before
 	public void setup() {
 		System.setProperty(SeleniumConst.DRIVER_KEY, SeleniumConst.DRIVER_LOCATION);
@@ -24,8 +25,7 @@ public class HomePageCreateTest {
 		chromeOptions.addArguments("--headless");
 		driver = new ChromeDriver(chromeOptions);
 		driver.get(SeleniumConst.HOMEPAGE_URL);
-		homepage = new HomePagePOM(driver);
-		
+		homepage = new HomePagePOM(driver);		
 	}
 	
 	@Test

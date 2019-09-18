@@ -9,6 +9,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import com.qa.selenium.SeleniumConst;
 
+import com.qa.selenium.homepage.HomePagePOM;
+
 public class HomePageUpdateTest {
 
 	private WebDriver driver;
