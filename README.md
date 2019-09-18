@@ -1,10 +1,80 @@
 # Demo project
 
+# Docker-compose.yml
+Docker is a containerisation tool. I've thrown this in as it will be useful for you to throw your applications into a container, so that you can easily update the images, which will inturn update the containers.
+
+The yaml file looks like the following
+
+``` yaml
+version: '3'
+services:
+  client:
+    build: ./client/
+    ports:
+      - "80:80"
+  server:
+    build: ./server/
+    ports:
+      - "8081:8081"
+```
+
+It is doing the following, creating two services - one is called client and one is called server (these are names you give it, they have no special meaning here). 
+
+First - it builds two images, one from the client folder and one from the server folder.
+Second - it port forwards any requests the machine to the port in the container
+
+
+How does it know what to build? This is where the Dockerfile comes in. Lets have a look at the server/Dockerfile
+``` Dockerfile
+FROM java:8-jdk-alpine
+
+COPY ./target/notes-0.0.1.jar /usr/app/
+
+ENTRYPOINT ["java","-jar","usr/app/notes-0.0.1.jar"]
+```
+
+FROM - this is the image we are going to be putting out items into. A container is an instance of an image. Containers are similar to VM's but are much more lightweight.
+COPY - this will copy the jar file on the machine, and put it into the /usr/app/ folder within the container. Previously to this it is important to run mvn package or mvn install so that the jar is available in the target folder.
+ENTRYPOINT - similar to a command that gets run when an the container is run.
+
+Looking at the client dockerfile:
+``` Dockerfile
+FROM httpd:2.4
+COPY ./public-html/* /usr/local/apache2/htdocs/
+```
+
+httpd:2.4 is the code given the the apache server. This way you don't have to muddle about with permissions on your machine, everything is containerised.
+
+
+## Docker images
+To build the images from these two Dockerfiles in one command, place the cwd in the base folder and run:
+> sudo docker-compose build
+
+Next it is possible to see the images with:
+> sudo docker image ls
+
+To run the made images, here it is possible with:
+> sudo docker-compose up -d
+
+You can check if the containers are running with:
+> sudo docker container ls
+
+---
+
+# Jenkins pipeline
+Previously you have created a freestyle project. But jenkins pipelines offer slightly more flexibility.
+You can configure it to run a secret script everytime, or place the Jenkinsfile in your repository.
+
+The jenkinsfile builds, tests, deploys and then performs end to end testing.
+
+---
+
 # Client
 This was done quite quickly so you might expect to see a lot of bad practice (do not replicate the bad practice - this was a quick thing to show an example).
 
 Full CRUD achieved. 
 
+---
 
 # Server
 
