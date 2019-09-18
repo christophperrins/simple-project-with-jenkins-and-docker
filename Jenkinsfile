@@ -18,12 +18,15 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                sh 'sudo docker-compose build'
                 sh 'sudo docker-compose up -d'
             }
         }
         stage('Selenium Tests') {
             steps {
-                sh 'mvn test -Dtest=SeleniumSuite'
+                dir("server/") {
+                    sh 'mvn test -Dtest=SeleniumSuite'
+                }
             }
         }
     }
