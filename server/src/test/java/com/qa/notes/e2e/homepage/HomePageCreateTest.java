@@ -1,4 +1,4 @@
-package e2e.homepage;
+package com.qa.notes.e2e.homepage;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,8 +14,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import e2e.SeleniumConst;
-import e2e.homepage.HomePagePOM;
+import com.qa.notes.e2e.SeleniumConst;
+import com.qa.notes.e2e.homepage.HomePagePOM;
 
 public class HomePageCreateTest {
 

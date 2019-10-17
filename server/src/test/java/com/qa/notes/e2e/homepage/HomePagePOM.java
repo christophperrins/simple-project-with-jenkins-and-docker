@@ -1,4 +1,4 @@
-package e2e.homepage;
+package com.qa.notes.e2e.homepage;
 
 import java.util.ArrayList;
 import java.util.List;

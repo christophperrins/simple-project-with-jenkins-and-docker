@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -49,7 +50,7 @@ public class NoteControllerTest {
 	
 
 	@Test
-	public void updateNoteTest() {
+	public void updateNoteTest() throws NotFoundException {
 		NoteDto dto = new NoteDto(1L, "Text");
 		Mockito.when(noteService.updateNote(dto)).thenReturn(new NoteDto(1L, "Text"));
 		
@@ -57,7 +58,7 @@ public class NoteControllerTest {
 	}
 	
 	@Test
-	public void deleteNoteTest() {
+	public void deleteNoteTest() throws NotFoundException {
 		Long id = 1L;
 		NoteDto dto = new NoteDto(1L, "Text");
 		Mockito.when(noteService.deleteNote(id)).thenReturn(dto);

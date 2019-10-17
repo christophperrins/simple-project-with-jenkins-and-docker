@@ -1,4 +1,6 @@
-package e2e.homepage;
+package com.qa.notes.e2e.homepage;
+
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,10 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import e2e.SeleniumConst;
-import e2e.homepage.HomePagePOM;
+import com.qa.notes.e2e.SeleniumConst;
+import com.qa.notes.e2e.homepage.HomePagePOM;
 
-public class HomePageUpdateTest {
+public class HomePageDeleteTest {
 
 	private WebDriver driver;
 	private HomePagePOM homepage;
@@ -28,8 +30,10 @@ public class HomePageUpdateTest {
 	}
 	
 	@Test
-	public void updateTest() throws InterruptedException {
-		homepage.updateNote(SeleniumConst.OLD_TEXT, SeleniumConst.NEW_TEXT);
+	public void deleteTest() {
+		int before = homepage.noteLength();
+		homepage.deleteNote(SeleniumConst.NEW_TEXT);
+		assertEquals(before - 1, homepage.noteLength());
 	}
 	
 	@After

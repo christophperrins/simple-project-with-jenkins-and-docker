@@ -1,4 +1,4 @@
-package e2e;
+package com.qa.notes.e2e;
 
 import org.openqa.selenium.WebDriver;
 
