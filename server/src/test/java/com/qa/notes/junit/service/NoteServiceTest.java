@@ -1,4 +1,4 @@
-package com.qa.service;
+package com.qa.notes.junit.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -15,9 +15,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.qa.dto.NoteDto;
-import com.qa.persistence.model.Note;
-import com.qa.persistence.repository.NoteRepository;
+import com.qa.notes.dto.NoteDto;
+import com.qa.notes.persistence.model.Note;
+import com.qa.notes.persistence.repository.NoteRepository;
+import com.qa.notes.service.NoteService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NoteServiceTest {

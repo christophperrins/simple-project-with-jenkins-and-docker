@@ -1,4 +1,4 @@
-package com.qa.selenium.homepage;
+package com.qa.notes.selenium.homepage;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,9 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import com.qa.selenium.SeleniumConst;
-
-import com.qa.selenium.homepage.HomePagePOM;
+import com.qa.notes.selenium.SeleniumConst;
+import com.qa.notes.selenium.homepage.HomePagePOM;
 
 public class HomePageUpdateTest {
 
@@ -20,9 +19,9 @@ public class HomePageUpdateTest {
 	@Before
 	public void setup() {
 		System.setProperty(SeleniumConst.DRIVER_KEY, SeleniumConst.DRIVER_LOCATION);
-		ChromeOptions chromeOptions = new ChromeOptions();
-		chromeOptions.addArguments("--headless");
-		driver = new ChromeDriver(chromeOptions);
+//		ChromeOptions chromeOptions = new ChromeOptions();
+//		chromeOptions.addArguments("--headless");
+		driver = new ChromeDriver();
 		driver.get(SeleniumConst.HOMEPAGE_URL);
 		homepage = new HomePagePOM(driver);
 		

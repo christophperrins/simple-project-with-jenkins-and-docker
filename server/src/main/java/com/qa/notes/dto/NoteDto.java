@@ -1,6 +1,6 @@
-package com.qa.dto;
+package com.qa.notes.dto;
 
-import com.qa.persistence.model.Note;
+import com.qa.notes.persistence.model.Note;
 
 public class NoteDto {
 

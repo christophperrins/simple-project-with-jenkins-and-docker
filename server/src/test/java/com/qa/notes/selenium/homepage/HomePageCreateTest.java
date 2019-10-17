@@ -1,4 +1,4 @@
-package com.qa.selenium.homepage;
+package com.qa.notes.selenium.homepage;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,13 +7,15 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.qa.selenium.SeleniumConst;
-
-import com.qa.selenium.homepage.HomePagePOM;
+import com.qa.notes.selenium.SeleniumConst;
+import com.qa.notes.selenium.homepage.HomePagePOM;
 
 public class HomePageCreateTest {
 
@@ -23,16 +25,16 @@ public class HomePageCreateTest {
 	@Before
 	public void setup() {
 		System.setProperty(SeleniumConst.DRIVER_KEY, SeleniumConst.DRIVER_LOCATION);
-		ChromeOptions chromeOptions = new ChromeOptions();
-		chromeOptions.addArguments("--headless");
-		driver = new ChromeDriver(chromeOptions);
+//		ChromeOptions chromeOptions = new ChromeOptions();
+//		chromeOptions.addArguments("--headless");
+		driver = new ChromeDriver();
 		driver.get(SeleniumConst.HOMEPAGE_URL);
 		homepage = new HomePagePOM(driver);		
 	}
 	
 	@Test
 	public void addNoteTest() {
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		new WebDriverWait(driver, 4).until(ExpectedConditions.invisibilityOfElementLocated(By.id("loading-notes")));
 		int before = homepage.noteLength();
 		homepage.addNote(SeleniumConst.OLD_TEXT);
 		assertEquals(before + 1, homepage.noteLength());

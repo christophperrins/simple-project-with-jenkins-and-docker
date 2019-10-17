@@ -1,4 +1,4 @@
-package com.qa.service;
+package com.qa.notes.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.dto.NoteDto;
-import com.qa.persistence.model.Note;
-import com.qa.persistence.repository.NoteRepository;
+import com.qa.notes.dto.NoteDto;
+import com.qa.notes.persistence.model.Note;
+import com.qa.notes.persistence.repository.NoteRepository;
 
 @Service
 public class NoteService {

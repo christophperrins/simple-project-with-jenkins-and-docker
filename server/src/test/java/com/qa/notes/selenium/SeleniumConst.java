@@ -1,4 +1,6 @@
-package com.qa.selenium;
+package com.qa.notes.selenium;
+
+import org.openqa.selenium.WebDriver;
 
 public class SeleniumConst {
 
@@ -11,4 +13,8 @@ public class SeleniumConst {
 	public static final String OLD_TEXT = "old Text";
 	
 	public static final String NEW_TEXT = "new Text";
+	
+	public static void homepageSetup() {
+		
+	}
 }

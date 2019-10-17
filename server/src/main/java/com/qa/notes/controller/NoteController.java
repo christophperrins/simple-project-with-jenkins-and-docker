@@ -1,4 +1,4 @@
-package com.qa.controller;
+package com.qa.notes.controller;
 
 
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.dto.NoteDto;
-import com.qa.service.NoteService;
+import com.qa.notes.dto.NoteDto;
+import com.qa.notes.service.NoteService;
 
 @RestController
 @CrossOrigin("*")

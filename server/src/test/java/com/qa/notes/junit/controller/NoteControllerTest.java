@@ -1,4 +1,4 @@
-package com.qa.controller;
+package com.qa.notes.junit.controller;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,9 +14,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.qa.dto.NoteDto;
-import com.qa.persistence.repository.NoteRepository;
-import com.qa.service.NoteService;
+import com.qa.notes.controller.NoteController;
+import com.qa.notes.dto.NoteDto;
+import com.qa.notes.persistence.repository.NoteRepository;
+import com.qa.notes.service.NoteService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NoteControllerTest {
