@@ -1,4 +1,4 @@
-package com.qa.notes.selenium.homepage;
+package e2e.homepage;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,8 +14,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.qa.notes.selenium.SeleniumConst;
-import com.qa.notes.selenium.homepage.HomePagePOM;
+import e2e.SeleniumConst;
+import e2e.homepage.HomePagePOM;
 
 public class HomePageCreateTest {
 
@@ -25,9 +25,9 @@ public class HomePageCreateTest {
 	@Before
 	public void setup() {
 		System.setProperty(SeleniumConst.DRIVER_KEY, SeleniumConst.DRIVER_LOCATION);
-//		ChromeOptions chromeOptions = new ChromeOptions();
-//		chromeOptions.addArguments("--headless");
-		driver = new ChromeDriver();
+		ChromeOptions chromeOptions = new ChromeOptions();
+		chromeOptions.addArguments("--headless");
+		driver = new ChromeDriver(chromeOptions);
 		driver.get(SeleniumConst.HOMEPAGE_URL);
 		homepage = new HomePagePOM(driver);		
 	}

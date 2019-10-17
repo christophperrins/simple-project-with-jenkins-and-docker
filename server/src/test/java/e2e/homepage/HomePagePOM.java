@@ -1,4 +1,4 @@
-package com.qa.notes.selenium.homepage;
+package e2e.homepage;
 
 import java.util.ArrayList;
 import java.util.List;
