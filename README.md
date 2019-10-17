@@ -27,6 +27,8 @@ To run JUnit tests on the controller and service classes:
 mvn test -Dtest=ControllerAndServiceSuite
 ```
 
+
+
 To run end-to-end tests with selenium:
 ```sh
 mvn test -Dtest=SeleniumSuite

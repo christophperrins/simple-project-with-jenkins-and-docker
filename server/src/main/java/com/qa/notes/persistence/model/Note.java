@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * An entity is something which will be managed by the JPA (Java Persistence API)
+ *
+ */
 @Entity
 public class Note {
 

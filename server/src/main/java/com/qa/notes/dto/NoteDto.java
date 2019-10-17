@@ -2,6 +2,11 @@ package com.qa.notes.dto;
 
 import com.qa.notes.persistence.model.Note;
 
+/**
+ * DTO - Data transfer object
+ * Used to keep display only certain information after mapping. Keeps entity integrity by never returning Entity's to the frontend
+ *
+ */
 public class NoteDto {
 
 	Long id;
