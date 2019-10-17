@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import com.qa.notes.dto.NoteDto;
 import com.qa.notes.persistence.model.Note;
@@ -46,7 +47,7 @@ public class NoteServiceTest {
 	
 
 	@Test
-	public void updateNoteTest() {
+	public void updateNoteTest() throws NotFoundException {
 		NoteDto dto = new NoteDto(1L, "new Text");
 		Note note = new Note(1L, "old Text");
 		
@@ -56,7 +57,7 @@ public class NoteServiceTest {
 	}
 	
 	@Test
-	public void deleteNoteTest() {
+	public void deleteNoteTest() throws NotFoundException {
 		Long id = 1L;
 		Note note = new Note(id, "Text");
 		Mockito.when(noteRepository.getOne(id)).thenReturn(note);		
