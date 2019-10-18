@@ -12,12 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import com.qa.notes.controller.NoteController;
 import com.qa.notes.dto.NoteDto;
-import com.qa.notes.persistence.repository.NoteRepository;
 import com.qa.notes.service.NoteService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -41,11 +38,11 @@ public class NoteControllerTest {
 	
 
 	@Test
-	public void createNoteTest() {
+	public void createNoteTest() throws NotFoundException {
 		NoteDto dto = new NoteDto(null, "Text");
-		Mockito.when(noteService.createNote(dto)).thenReturn(new NoteDto(2L, "Text"));
+		Mockito.when(noteService.createNote(dto, 1L)).thenReturn(new NoteDto(2L, "Text"));
 		
-		assertEquals((Long) 2L, noteController.createNote(dto).getId());
+		assertEquals((Long) 2L, noteController.createNote(dto, 1L).getId());
 	}
 	
 

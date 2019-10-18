@@ -9,13 +9,18 @@ import org.springframework.stereotype.Service;
 
 import com.qa.notes.dto.NoteDto;
 import com.qa.notes.persistence.model.Note;
+import com.qa.notes.persistence.model.Notebook;
 import com.qa.notes.persistence.repository.NoteRepository;
+import com.qa.notes.persistence.repository.NotebookRepository;
 
 @Service
 public class NoteService {
 	
 	@Autowired
 	private NoteRepository noteRepository;
+	
+	@Autowired
+	private NotebookRepository notebookRepository;
 
 	/**
 	 * Get all notes in the database
@@ -30,17 +35,19 @@ public class NoteService {
 	}
 	
 	/**
-	 * Used to save a Note into the database
-	 * @param noteDto 
-	 * a Note a DTO. Whether id is present makes no difference
-	 * @return 
-	 * a Note DTO, with a given id from the database.
+	 * Creates a note and adds it to a notebook
+	 * @param noteDto A notebook Data Transfer Object
+	 * @param notebookId notebookId for searching in notebookRepository
+	 * @return A NoteDTO object which can then be sent to the client
+	 * @throws NotFoundException Thrown if the notebookid is not found
 	 */
-	public NoteDto createNote(NoteDto noteDto){
-		noteDto.setId(null);
+	public NoteDto createNote(NoteDto noteDto, Long notebookId) throws NotFoundException{
 		Note note = new Note();
 		note.setText(noteDto.getText());
-		
+		System.out.println(notebookId);
+		Notebook notebook = notebookRepository.findById(notebookId).orElseThrow(() -> new NotFoundException());
+		notebook.getNotes().add(note);
+		notebookRepository.flush();
 		return new NoteDto(noteRepository.saveAndFlush(note));
 	}
 	

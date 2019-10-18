@@ -9,8 +9,8 @@ import com.qa.notes.persistence.model.Note;
  */
 public class NoteDto {
 
-	Long id;
-	String text;
+	private Long id;
+	private String text;
 	
 	public NoteDto() {
 		super();

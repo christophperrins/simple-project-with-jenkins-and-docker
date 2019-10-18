@@ -40,9 +40,4 @@ public class Note {
 		this.text = text;
 	}
 	
-	// Should be a factory pattern 
-	public static Note createNote() {
-		return new Note();
-	}
-	
 }

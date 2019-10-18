@@ -1,13 +1,11 @@
 package com.qa.notes.controller;
 
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,48 +14,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.notes.dto.NoteDto;
-import com.qa.notes.service.NoteService;
-
-/**
- * Note controller. For retrieving and posting notes.
- *
- */
+import com.qa.notes.dto.NotebookDto;
+import com.qa.notes.persistence.model.Notebook;
+import com.qa.notes.service.NotebookService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(path = "/note")
-public class NoteController {
-	
+@RequestMapping(path = "/notebook")
+public class NotebookController {
+
 	@Autowired
-	private NoteService service;
+	private NotebookService service;
 
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<NoteDto> getNotes(){
-		return new ArrayList<NoteDto>(service.getNotes());
+	public List<NotebookDto> getNotebooks() {
+		return service.getNotebooks().stream().map(notebook -> new NotebookDto(notebook)).collect(Collectors.toList());
 	}
 	
-	@PostMapping("/{notebookId}")
+	@GetMapping(path = "/{notebookId}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<NoteDto> getNotes(@PathVariable Long notebookId) throws NotFoundException{
+		return service.getNotesForNotebook(notebookId).stream().map(note -> new NoteDto(note)).collect(Collectors.toList());
+	}
+
+	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public NoteDto createNote(@RequestBody NoteDto note, @PathVariable Long notebookId) throws NotFoundException{
-		note.setId(null);
-		return service.createNote(note, notebookId);
+	public NotebookDto postNotebook(@RequestBody NotebookDto dto) {
+		dto.setId(null);
+		return new NotebookDto(service.addNotebook(new Notebook(dto)));
 	}
-	
+
 	@PutMapping
 	@ResponseStatus(code = HttpStatus.OK)
-	public NoteDto updateNote(@RequestBody NoteDto note) throws NotFoundException{
-		return service.updateNote(note);
+	public NotebookDto putNotebook(@RequestBody NotebookDto dto) throws NotFoundException {
+		return new NotebookDto(service.updateNotebook(new Notebook(dto)));
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public NoteDto deleteNote(@PathVariable Long id) throws NotFoundException{
-		return service.deleteNote(id);
+	public NotebookDto deleteNotebook(@PathVariable Long id) throws NotFoundException{
+		return new NotebookDto(service.deleteNotebook(id));
 	}
 }
