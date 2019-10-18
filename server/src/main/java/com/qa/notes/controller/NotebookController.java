@@ -55,7 +55,7 @@ public class NotebookController {
 		return new NotebookDto(service.updateNotebook(new Notebook(dto)));
 	}
 
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = "/{notebookId}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public NotebookDto deleteNotebook(@PathVariable Long id) throws NotFoundException{
 		return new NotebookDto(service.deleteNotebook(id));

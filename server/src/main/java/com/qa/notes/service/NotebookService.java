@@ -1,7 +1,6 @@
 package com.qa.notes.service;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -21,7 +20,7 @@ public class NotebookService {
 		return notebookRepository.findAll();
 	}
 	
-	public Set<Note> getNotesForNotebook(Long id) throws NotFoundException {
+	public List<Note> getNotesForNotebook(Long id) throws NotFoundException {
 		Notebook notebook = notebookRepository.findById(id).orElseThrow(() -> new NotFoundException());
 		return notebook.getNotes();
 	}

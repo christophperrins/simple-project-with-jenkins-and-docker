@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>CP Demo</title>
-<link rel="stylesheet" href="styles.css">
+    <title>CP Demo</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-<h1>Welcome to my notes</h1>
-<form onsubmit="postNote(event)">
-<input id="textInput" type="text" name="noteValue"/> 
-<input id="submitInput" type="submit">
-</form>
-<div>
-<ul id="notes" class="cool">
-<li id="loading-notes">Loading...</li>
+    <h1>Welcome to my Notebooks</h1>
+    <div>
+        <ul id="notebooks">
+        </ul>
+        <form onsubmit="return postNotebook(event)">
+            <input type="text" id="title" placeholder="Enter notebook title">
+            <input type="color" id="colour" value="#ed4030">
+            <input type="submit">
+        </form>
+    </div>
 
-</ul>
-</div>
+    <script src="utils.js"></script>
+    <script src="notebook.js"></script>
 
-<script src="functionality.js"></script>
 </body>
 
 </html>

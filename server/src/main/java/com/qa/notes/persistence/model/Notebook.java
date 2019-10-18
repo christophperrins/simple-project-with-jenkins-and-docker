@@ -1,14 +1,14 @@
 package com.qa.notes.persistence.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.qa.notes.dto.NotebookDto;
@@ -25,7 +25,8 @@ public class Notebook {
 	private String colour;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	private Set<Note> notes = new HashSet<Note>();
+	@JoinColumn
+	private List<Note> notes = new ArrayList<Note>();
 
 	public Notebook() {
 		
@@ -61,13 +62,14 @@ public class Notebook {
 		this.colour = colour;
 	}
 
-	public Set<Note> getNotes() {
+	public List<Note> getNotes() {
 		return notes;
 	}
 
-	public void setNotes(Set<Note> notes) {
+	public void setNotes(List<Note> notes) {
 		this.notes = notes;
 	}
+	
 	
 	
 }

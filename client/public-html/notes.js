@@ -1,63 +1,92 @@
 function getData() {
-    noteRequest("GET");
+    let url = "http://" + location.hostname + ":8081/notebook/" + new URL(location.href).searchParams.get("id");
+    let headers = {
+        "Content-Type": "application/json"
+    }
+    httpRequest("GET", url, headers).then(request => renderNotes(request));
 }
 
 function postNote(event) {
     event.preventDefault();
     let data = event.target.noteValue.value;
-    if(data){
-        noteRequest("POST", {"text": data});
-    } 
-    event.target.noteValue.value = "";
+    if (data) {
+        let url = "http://" + location.hostname + ":8081/note/" + new URL(location.href).searchParams.get("id");
+        let headers = {
+            'Content-Type': 'application/json',
+        }
+        let body = { "text": data }
+
+        httpRequest("POST", url, headers, JSON.stringify(body))
+            .then(request => getData());
+        event.target.noteValue.value = "";
+    }
     return false;
 }
 
-function updateNote(event){
+function updateNote(event) {
     event.preventDefault();
-    let body ={
+    let body = {
         id: event.target.parentElement.parentElement.id,
         text: event.target.noteText.value
-    }   
+    }
 
-    noteRequest("PUT", body);
+    let url = "http://" + location.hostname + ":8081/note/";
+    let headers = {
+        'Content-Type': 'application/json',
+    }
+
+    httpRequest("PUT", url, headers, JSON.stringify(body))
+        .then(request => getData());
 }
 
-function deleteNote(event){
+function deleteNote(event) {
     let id = event.target.parentElement.id;
-    noteRequest("DELETE", "", id);
+    let url = "http://" + location.hostname + ":8081/note/" + id;
+    let headers = {
+        'Content-Type': 'application/json',
+    }
+
+    httpRequest("DELETE", url, headers)
+        .then(request => getData());
 }
 
 function showData(request) {
+    list.innerHTML = "";
+
+
+
+}
+
+let renderNotes = (request) => {
     let list = document.getElementById("notes");
     list.innerHTML = "";
 
     let notes = JSON.parse(request.response);
+    notes.forEach(note => {
 
-    let makeNote = (note) => {
+
         let listItem = document.createElement("li");
-        
+
         let para = document.createElement("p");
         para.innerText = note.text;
         para.setAttribute("onclick", "addInput(event)")
         listItem.setAttribute("id", note.id);
-        
+
         let button = document.createElement("button");
         button.innerText = "Delete";
-        button.setAttribute("onclick", "deleteNote(event)")        
+        button.setAttribute("onclick", "deleteNote(event)")
         listItem.appendChild(para);
         listItem.appendChild(button);
         list.appendChild(listItem)
-    }
-
-    notes.forEach(note => makeNote(note))
+    });
 }
 
-function addInput(event){
+function addInput(event) {
     let note = event.target;
     note.removeAttribute("onclick");
     let text = note.innerText;
     note.innerText = "";
-    
+
     let form = document.createElement("form");
     let inputBox = document.createElement("input");
     form.setAttribute("onsubmit", "updateNote(event)");
@@ -69,40 +98,6 @@ function addInput(event){
     form.appendChild(inputBox);
     form.appendChild(submit);
     note.appendChild(form);
-}
-
-function noteRequest(method, body, extension) {
-    if (!extension){
-        extension = "";
-    } 
-    let endpoint = "note/" + extension;
-    method = method.toUpperCase();
-    let callback;
-    method == "GET" ? callback = showData : callback = getData; 
-    let headers = {
-        "Content-Type": "application/json"
-    }
-
-    body ? body = JSON.stringify(body) : body = undefined;
-
-    httpRequest(method, endpoint, callback, headers, body);
-}
-
-
-function httpRequest(method, endpoint, callback, headers, body){
-    let URL = "http://" + location.host + ":8081/";
-    let request = new XMLHttpRequest();
-    console.log(URL + endpoint)
-    request.open(method, URL + endpoint);
-    request.onload = () => {
-        callback(request);
-    }
-    
-    for(let key in headers){
-        request.setRequestHeader(key, headers[key]);
-    }
-
-    body ? request.send(body) : request.send();
 }
 
 getData();
