@@ -1,3 +1,10 @@
+let token = sessionStorage.getItem("bearerToken");
+
+if(!token) {
+    sessionStorage.setItem("redirect", "/home.html");
+    window.location.href = "/";
+}
+
 function getData() {
     noteRequest("GET");
 }
@@ -9,7 +16,6 @@ function postNote(event) {
         noteRequest("POST", {"text": data});
     } 
     event.target.noteValue.value = "";
-    return false;
 }
 
 function updateNote(event){
@@ -31,7 +37,7 @@ function showData(request) {
     let list = document.getElementById("notes");
     list.innerHTML = "";
 
-    let notes = JSON.parse(request.response);
+    let notes = JSON.parse(request.response).notes  ;
 
     let makeNote = (note) => {
         let listItem = document.createElement("li");
@@ -75,7 +81,7 @@ function noteRequest(method, body, extension) {
     if (!extension){
         extension = "";
     } 
-    let endpoint = "note/" + extension;
+    let endpoint = extension+"/";
     method = method.toUpperCase();
     let callback;
     method == "GET" ? callback = showData : callback = getData; 
@@ -90,11 +96,11 @@ function noteRequest(method, body, extension) {
 
 
 function httpRequest(method, endpoint, callback, headers, body){
-    let URL = "http://" + location.host + ":8081/";
+    let URL = "http://localhost:8085/api/note/"+endpoint+sessionStorage.getItem("bearerToken");
     let request = new XMLHttpRequest();
-    console.log(URL + endpoint)
-    request.open(method, URL + endpoint);
+    request.open(method, URL);
     request.onload = () => {
+        sessionStorage.setItem("bearerToken", JSON.parse(request.response).bearerToken);
         callback(request);
     }
     
